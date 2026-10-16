@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#14233f" />
+<title>DetailIQ — Pharma Field Intelligence Demo</title>
+<style>
+:root{--ink:#17233d;--muted:#657087;--paper:#f3f5f4;--panel:#fff;--line:#dfe4e2;--teal:#087d70;--teal-soft:#e4f3ef;--amber:#9b5a13;--amber-soft:#fff2df;--red:#a43243;--red-soft:#fdecef;--purple:#6547a1;--purple-soft:#eee9fa;--rose:#b84d68;--rose-soft:#f9e8ed;--blue:#315f9f;--blue-soft:#eaf1fb;--shadow:0 2px 8px rgba(23,35,61,.04),0 14px 35px rgba(23,35,61,.055);--radius:16px;--accent:var(--red);--accent-soft:var(--red-soft)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(900px 500px at 90% -12%,rgba(8,125,112,.08),transparent 60%),var(--paper);color:var(--ink);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid rgba(8,125,112,.35);outline-offset:2px}button:disabled{opacity:.45;cursor:not-allowed}.wrap{max-width:1320px;margin:0 auto;padding:24px 24px 64px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 0 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;background:var(--ink);color:white;display:grid;place-items:center;font-weight:850;letter-spacing:-.06em;font-size:16px;box-shadow:var(--shadow)}.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-weight:800}.brand h1{margin:0;font-size:27px;letter-spacing:-.045em;line-height:1.2}.brand h1 span{color:var(--accent)}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}.head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.view-toggle{display:flex;background:#e6eae8;padding:4px;border-radius:12px;gap:3px}.view-toggle button{border:0;padding:9px 13px;border-radius:9px;background:transparent;color:var(--muted);font-weight:750;font-size:12px}.view-toggle button.active{background:var(--ink);color:#fff;box-shadow:0 2px 5px #17233d20}.disclaimer{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;margin:16px 0 20px;border:1px solid #e9ce9f;background:#fff8e9;border-radius:12px;color:#75450e;font-size:12px}.disclaimer strong{display:block;margin-bottom:1px}.disclaimer .icon{font-size:17px;line-height:1.2}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin:0 0 20px;flex-wrap:wrap}.hero h2{font-size:25px;line-height:1.15;letter-spacing:-.04em;margin:0 0 6px}.hero p{margin:0;color:var(--muted);max-width:690px;font-size:13px}.therapy-picker{display:flex;gap:6px;flex-wrap:wrap}.ta-pill{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:9px 12px;font-size:10px;font-weight:850;letter-spacing:.045em}.ta-pill.active[data-ta="cv"]{background:var(--red);color:#fff;border-color:var(--red)}.ta-pill.active[data-ta="onc"]{background:var(--purple);color:#fff;border-color:var(--purple)}.ta-pill.active[data-ta="wh"]{background:var(--rose);color:#fff;border-color:var(--rose)}.main-grid{display:grid;grid-template-columns:minmax(330px,.86fr) minmax(440px,1.14fr);gap:18px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;min-width:0}.panel-head{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fcfdfc}.panel-title{font-size:12px;font-weight:850;letter-spacing:.01em}.panel-kicker{display:block;text-transform:uppercase;letter-spacing:.1em;font-size:9px;color:var(--muted);font-weight:850;margin-bottom:2px}.status-pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 8px;font-size:9px;font-weight:850;letter-spacing:.05em;background:#edf0ef;color:#576277;white-space:nowrap}.status-pill.demo{background:var(--amber-soft);color:var(--amber)}.status-pill.good{background:var(--teal-soft);color:var(--teal)}.status-pill.warn{background:var(--amber-soft);color:var(--amber)}.status-pill.bad{background:var(--red-soft);color:var(--red)}.slide-content{padding:20px 20px 12px;min-height:267px}.slide-index{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.slide-index span{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted);letter-spacing:.04em}.doc-status{font-size:9px;border:1px dashed #d9a85e;color:#8b581b;background:#fff9ed;padding:4px 7px;border-radius:6px;font-weight:750}.slide-content h3{font-size:23px;line-height:1.2;letter-spacing:-.035em;margin:0 0 9px}.slide-content p{color:var(--muted);margin:0 0 15px;font-size:13px}.slide-points{list-style:none;padding:0;margin:0;display:grid;gap:9px}.slide-points li{display:flex;gap:9px;align-items:flex-start;color:#3f4b61;font-size:12px}.slide-points li:before{content:"";width:7px;height:7px;border-radius:2px;background:var(--accent);margin-top:5px;flex:0 0 auto}.slide-foot{margin:0 17px;padding:12px 0;border-top:1px dashed var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.slide-nav{display:flex;gap:7px;align-items:center}.slide-nav button{border:1px solid var(--line);background:white;border-radius:9px;padding:7px 10px;color:var(--ink);font-size:11px;font-weight:750}.slide-nav button:hover{border-color:var(--accent);color:var(--accent)}.slide-count{font-size:10px;color:var(--muted);font-family:ui-monospace,monospace}.slide-dot-row{display:flex;gap:5px;align-items:center}.slide-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:#d9dedb}.slide-dot.active{background:var(--accent);width:18px;border-radius:10px}.source-note{background:#f8faf8;padding:11px 17px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}.source-note strong{color:var(--ink)}.chat-layout{display:flex;flex-direction:column}.chat-panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}.chat-panel-head .subhead{color:var(--muted);font-size:10px;margin-top:2px}.legend{display:flex;gap:8px;flex-wrap:wrap}.legend span{display:inline-flex;align-items:center;gap:5px;color:var(--muted);font-size:9px;font-weight:750}.legend i{width:7px;height:7px;border-radius:50%;display:inline-block}.legend .lg-ref{background:var(--teal)}.legend .lg-esc{background:#ce8c31}.chat-thread{padding:16px;min-height:245px;max-height:390px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;background:linear-gradient(180deg,#fff,#fdfefd)}.welcome{padding:12px 13px;border:1px dashed #cfd8d3;border-radius:12px;color:var(--muted);font-size:12px;max-width:95%;background:#fbfcfb}.msg{max-width:94%;border-radius:13px;padding:11px 13px;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.msg.user{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:4px}.msg.assistant{align-self:flex-start;border:1px solid var(--line);background:#f6f8f6;color:var(--ink);border-bottom-left-radius:4px}.msg.assistant.escalated{background:var(--amber-soft);border-color:#ecd3aa}.msg-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}.msg-label{font-size:9px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}.msg p{margin:0}.source-button{margin-top:9px;border:1px solid rgba(8,125,112,.25);background:var(--teal-soft);color:var(--teal);padding:6px 9px;border-radius:7px;font-size:10px;font-weight:850;text-align:left;display:inline-flex;align-items:center;gap:7px}.escalation-note{font-size:10px;color:#7c4f13;margin-top:8px;padding-top:8px;border-top:1px solid #e7c997}.suggestion-area{padding:0 15px 13px}.suggestion-label{font-size:9px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}.chip-row{display:flex;flex-wrap:wrap;gap:7px}.qchip{max-width:100%;font-size:10.5px;text-align:left;line-height:1.35;padding:7px 10px;border-radius:9px;border:1px solid var(--line);background:#fff;color:#3f4b61}.qchip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}.chat-input-row{display:flex;gap:8px;padding:13px 15px 15px;border-top:1px solid var(--line);background:#fbfcfb}.chat-input-row input{min-width:0;flex:1;border:1px solid #d8dfda;border-radius:10px;padding:11px 12px;background:white;color:var(--ink);font-size:12px}.chat-input-row input::placeholder{color:#8a93a1}.primary-btn{border:0;background:var(--ink);color:white;font-size:11px;font-weight:850;padding:0 17px;border-radius:10px}.primary-btn:hover{background:var(--accent)}.subtle-btn{border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:800;font-size:10px;padding:8px 10px;border-radius:9px}.subtle-btn:hover{border-color:#abb8b1}.ledger-panel{margin-top:18px}.ledger-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.ledger-body{padding:0 16px 12px;overflow-x:auto}.ledger-meta{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 0;color:var(--muted);font-size:10px}.table{width:100%;border-collapse:collapse;min-width:690px}.table th{text-align:left;font-size:9px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;padding:10px 8px;background:#f8faf8;border-bottom:1px solid var(--line)}.table td{padding:10px 8px;font-size:10px;color:#3d4960;border-bottom:1px solid #edf0ed;vertical-align:top}.table tr:last-child td{border-bottom:0}.table .mono{font-family:ui-monospace,monospace;color:#697389;font-size:9px}.event-status{font-size:9px;font-weight:900;letter-spacing:.035em;white-space:nowrap}.event-status.reference{color:var(--teal)}.event-status.escalated{color:var(--amber)}.event-status.sample{color:var(--blue)}.empty-table{text-align:center;padding:25px 12px;color:var(--muted);font-size:11px}.view{display:none}.view.active{display:block}.stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:17px}.stat-card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px}.stat-label{font-size:9px;font-weight:850;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}.stat-value{font-size:29px;font-weight:850;letter-spacing:-.055em;line-height:1.2;margin:7px 0 4px}.stat-desc{font-size:10px;color:var(--muted)}.dash-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:15px;margin-bottom:15px}.chart-panel{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px}.chart-panel h3{font-size:15px;letter-spacing:-.02em;margin:0 0 4px}.chart-sub{font-size:10px;color:var(--muted);margin-bottom:17px}.bars{display:grid;gap:13px}.bar-row{display:grid;grid-template-columns:minmax(110px, .9fr) minmax(100px,1.8fr) 30px;align-items:center;gap:10px}.bar-label{font-size:10.5px;color:#4b566c}.bar-track{height:9px;border-radius:99px;background:#edf0ee;overflow:hidden}.bar-fill{height:100%;border-radius:99px;background:var(--accent);min-width:0;transition:width .2s ease}.bar-val{font:10px ui-monospace,monospace;text-align:right;color:var(--muted)}.outcome-list{display:grid;gap:13px}.outcome-head{display:flex;justify-content:space-between;gap:10px;font-size:11px}.outcome-head span:last-child{font:10px ui-monospace,monospace;color:var(--muted)}.outcome-track{height:8px;background:#edf0ee;border-radius:99px;overflow:hidden;margin-top:6px}.outcome-fill{height:100%;border-radius:99px}.dash-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px 14px;background:#f8faf9;border:1px solid var(--line);border-radius:12px;margin-bottom:15px}.dash-actions p{margin:0;color:var(--muted);font-size:10px;max-width:630px}.dash-actions .buttons{display:flex;gap:7px;flex-wrap:wrap}.dash-recent{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}.dash-recent .panel-head{background:#fff}.modal-backdrop{position:fixed;inset:0;background:rgba(16,26,44,.44);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}.modal-backdrop.open{display:flex}.modal{width:min(600px,100%);background:white;border:1px solid var(--line);border-radius:18px;box-shadow:0 22px 80px rgba(16,26,44,.28);overflow:hidden}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:18px;border-bottom:1px solid var(--line)}.modal-head h3{font-size:17px;margin:0 0 3px}.modal-head p{font-size:10px;color:var(--muted);margin:0}.icon-button{border:1px solid var(--line);background:white;border-radius:9px;width:34px;height:34px;color:var(--ink);font-size:18px}.modal-body{padding:18px}.source-meta{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:13px}.meta-box{background:#f7f9f7;border:1px solid #e6ebe7;border-radius:10px;padding:10px}.meta-box span{display:block;font-size:9px;color:var(--muted);font-weight:850;text-transform:uppercase;letter-spacing:.07em}.meta-box strong{font-size:11px;display:block;margin-top:4px}.source-excerpt{padding:13px;border:1px solid #e6ebe7;border-radius:10px;color:#3e4a5f;background:#fbfcfb;font-size:12px}.source-warning{color:#875316;background:var(--amber-soft);border-radius:10px;padding:10px 12px;font-size:10px;margin-top:12px}.footer-note{border-top:1px solid var(--line);margin-top:20px;padding-top:15px;color:var(--muted);font-size:10px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}.footer-note strong{color:var(--ink)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1000px){.main-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dash-grid{grid-template-columns:1fr}.head-actions{align-items:flex-start}.wrap{padding:18px 14px 45px}}
+@media(max-width:560px){.wrap{padding:14px 10px 35px}.brand h1{font-size:23px}.brand p{max-width:255px}.hero h2{font-size:22px}.panel-head{padding:12px}.slide-content{padding:16px;min-height:0}.slide-content h3{font-size:21px}.chat-thread{padding:12px;min-height:200px}.suggestion-area{padding:0 12px 12px}.chat-input-row{padding:11px}.primary-btn{padding:0 12px}.stat-grid{gap:8px}.stat-card{padding:12px}.stat-value{font-size:24px}.bar-row{grid-template-columns:100px 1fr 26px;gap:7px}.source-meta{grid-template-columns:1fr}.therapy-picker{width:100%}.ta-pill{flex:1;padding:8px 6px;font-size:9px}.view-toggle button{padding:8px 10px}.hero{gap:14px}.ledger-tools{width:100%}.ledger-tools button{flex:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">DIQ</div>
+      <div>
+        <div class="eyebrow">Pharma field intelligence · concept prototype</div>
+        <h1>Detail<span>IQ</span></h1>
+        <p>Source-aware in-call Q&amp;A concept with interaction analytics</p>
+      </div>
+    </div>
+    <div class="head-actions">
+      <div class="view-toggle" role="group" aria-label="Choose app view">
+        <button id="btnCall" class="active" aria-pressed="true">Rep workspace</button>
+        <button id="btnDash" aria-pressed="false">Brand analytics</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="disclaimer" role="note">
+    <span class="icon" aria-hidden="true">⚠</span>
+    <div><strong>SIMULATED DEMO — NOT FOR MEDICAL OR PROMOTIONAL USE</strong>
+      This standalone file uses fictional reference content and rule-based demo responses. It is not connected to a live AI model, an approved content library, Medical Information, a CRM, or any pharmaceutical system. No clinical claim shown here is real or approved. “DetailIQ” is an independent concept and is not affiliated with Bayer or Veeva.
+    </div>
+  </div>
+
+  <main>
+    <section class="view active" id="callView" aria-label="Representative workspace">
+      <div class="hero">
+        <div><h2>Answer with evidence. Escalate with confidence.</h2><p>Explore how a field representative might navigate a fictional approved-content index, find a relevant reference, and safely route questions the demo pack cannot answer.</p></div>
+        <div class="therapy-picker" role="group" aria-label="Choose therapeutic area">
+          <button class="ta-pill active" data-ta="cv" aria-pressed="true">CARDIOVASCULAR</button>
+          <button class="ta-pill" data-ta="onc" aria-pressed="false">ONCOLOGY</button>
+          <button class="ta-pill" data-ta="wh" aria-pressed="false">WOMEN'S HEALTH</button>
+        </div>
+      </div>
+
+      <div class="main-grid">
+        <section class="panel" aria-label="Illustrative detailing deck">
+          <div class="panel-head">
+            <div><span class="panel-kicker">Content navigator</span><div class="panel-title">Demo detail deck</div></div>
+            <span class="status-pill demo">FICTIONAL CONTENT</span>
+          </div>
+          <div class="slide-content" aria-live="polite">
+            <div class="slide-index"><span id="slideKicker">CARDIOVASCULAR · DEMO PACK</span><span class="doc-status">NOT APPROVED</span></div>
+            <h3 id="slideTitle">Trial design and endpoint map</h3>
+            <p id="slideBody">This fictional index shows where information would be found in a real approved detail deck. No efficacy or safety results are included.</p>
+            <ul id="slideList" class="slide-points"></ul>
+          </div>
+          <div class="slide-foot">
+            <div class="slide-nav"><button id="prevSlide" aria-label="Previous demo slide">← Prev</button><button id="nextSlide" aria-label="Next demo slide">Next →</button></div>
+            <div style="text-align:right"><div class="slide-count" id="slideCount">SLIDE 2 / 6</div><div class="slide-dot-row" id="slideDots" aria-label="Navigate demo slides"></div></div>
+          </div>
+          <div class="source-note"><strong>Source status:</strong> fictional index only · no clinical evidence attached · version DEMO-0.1</div>
+        </section>
+
+        <section class="panel chat-layout" aria-label="Question and answer demo">
+          <div class="chat-panel-head">
+            <div><div class="panel-title">DetailIQ · In-call Q&amp;A</div><div class="subhead">Responses use a small, predefined demo rule set—not generative AI.</div></div>
+            <div class="legend"><span><i class="lg-ref"></i>Reference found</span><span><i class="lg-esc"></i>Escalated</span></div>
+          </div>
+          <div class="chat-thread" id="chatThread" aria-live="polite" aria-label="Conversation">
+            <div class="welcome">Ask a question like an HCP would during a detailing interaction. The demo will either point to a relevant index slide or escalate a request it cannot safely answer.</div>
+          </div>
+          <div class="suggestion-area">
+            <p class="suggestion-label">Try a demo question</p>
+            <div class="chip-row" id="chipRow"></div>
+          </div>
+          <form class="chat-input-row" id="chatForm">
+            <label class="sr-only" for="chatInput">Enter an HCP question</label>
+            <input id="chatInput" type="text" autocomplete="off" placeholder="Type a question… e.g. Where is the trial design described?" maxlength="400" />
+            <button class="primary-btn" type="submit">Ask ↗</button>
+          </form>
+        </section>
+      </div>
+
+      <section class="panel ledger-panel" aria-label="Interaction event ledger">
+        <div class="panel-head">
+          <div><span class="panel-kicker">Locally stored demo events</span><div class="panel-title">Interaction ledger</div></div>
+          <div class="ledger-tools"><button class="subtle-btn" id="exportCsv">Export CSV</button><button class="subtle-btn" id="clearEvents">Clear log</button></div>
+        </div>
+        <div class="ledger-body">
+          <div class="ledger-meta"><span id="ledgerCount">0 events</span><span>Saved in this browser only · not a central audit trail</span></div>
+          <div id="ledgerTableWrap"><div class="empty-table">No questions logged yet. Try a suggested question above or load sample activity in Brand Analytics.</div></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="view" id="dashboard" aria-label="Brand analytics dashboard">
+      <div class="hero"><div><h2>Brand analytics</h2><p>Event-driven demo dashboard. Figures are calculated from interactions recorded in this browser. Load labelled synthetic activity to see the charts before asking questions yourself.</p></div><div class="status-pill demo">DEMO ANALYTICS · NOT PILOT RESULTS</div></div>
+      <div class="dash-actions">
+        <p><strong>Data provenance:</strong> only local demo events are used. Sample activity is synthetic and explicitly tagged; this dashboard is not connected to field-force or customer systems.</p>
+        <div class="buttons"><button id="loadSamples" class="primary-btn" style="padding:9px 12px">Load sample activity</button><button id="clearDashEvents" class="subtle-btn">Clear all activity</button><button id="dashExport" class="subtle-btn">Export CSV</button></div>
+      </div>
+      <div class="stat-grid">
+        <article class="stat-card"><div class="stat-label">Interactions logged</div><div class="stat-value" id="metricTotal">0</div><div class="stat-desc">Events in local demo ledger</div></article>
+        <article class="stat-card"><div class="stat-label">Reference found</div><div class="stat-value" id="metricReferences">0</div><div class="stat-desc">Questions mapped to a demo source</div></article>
+        <article class="stat-card"><div class="stat-label">Escalated</div><div class="stat-value" id="metricEscalations">0</div><div class="stat-desc">Questions not answered by demo pack</div></article>
+        <article class="stat-card"><div class="stat-label">Reference coverage</div><div class="stat-value" id="metricCoverage">—</div><div class="stat-desc">Reference-found events ÷ all events</div></article>
+      </div>
+      <div class="dash-grid">
+        <section class="chart-panel"><h3>Question themes</h3><div class="chart-sub">Count of recorded events by topic, across all therapeutic areas.</div><div class="bars" id="topicBars"><div class="empty-table">No events yet. Load sample activity or ask questions in Rep Workspace.</div></div></section>
+        <section class="chart-panel"><h3>Interaction outcomes</h3><div class="chart-sub">Outcome mix calculated from the local event ledger.</div><div class="outcome-list" id="outcomeList"><div class="empty-table">No events to summarise.</div></div><div style="border-top:1px solid var(--line);margin-top:18px;padding-top:14px;color:var(--muted);font-size:10px">Reference coverage measures whether the demo found an index reference. It does <strong>not</strong> measure clinical correctness, compliance, or real-world answer quality.</div></section>
+      </div>
+      <section class="dash-recent"><div class="panel-head"><div><span class="panel-kicker">Most recent</span><div class="panel-title">Latest interaction events</div></div><button class="subtle-btn" id="goWorkspace">Back to rep workspace</button></div><div class="ledger-body" id="recentEvents"><div class="empty-table">No events logged.</div></div></section>
+    </section>
+  </main>
+  <footer class="footer-note"><span><strong>DetailIQ</strong> · interactive concept prototype · DEMO-0.1</span><span>Real AI retrieval, approved-source verification, central audit logging, authentication and integrations are not implemented in this standalone app.</span></footer>
+</div>
+
+<div class="modal-backdrop" id="sourceModal" role="dialog" aria-modal="true" aria-labelledby="sourceModalTitle">
+  <div class="modal">
+    <div class="modal-head"><div><h3 id="sourceModalTitle">Demo source details</h3><p>Reference provenance for this simulated response</p></div><button class="icon-button" id="closeSource" aria-label="Close source details">×</button></div>
+    <div class="modal-body" id="sourceModalBody"></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  'use strict';
+  const STORE_KEY = 'detailiq_demo_events_v2';
+  const AREAS = {
+    cv: {
+      label: 'Cardiovascular', short: 'CV', color: '#a43243', soft: '#fdecef',
+      slides: [
+        {title:'Therapy overview and scope',body:'A fictional index slide showing the scope of a representative discussion. No product-specific claims are supplied.',points:['Introduces the topic structure for a demo call','Real product-specific language would need approved source material','No clinical efficacy or dosing statements are provided'],sourceId:'CV-DEMO-01',sourceTitle:'Cardiovascular Demo Index · Slide 1',excerpt:'Scope overview only. The sample contains no actual product identity or approved promotional claim.'},
+        {title:'Trial design and endpoint map',body:'This fictional index shows where study-design fields would be found in a real approved detail deck.',points:['Study population and eligibility overview','Comparator and endpoint definitions','Outcome values are intentionally omitted'],sourceId:'CV-DEMO-02',sourceTitle:'Cardiovascular Demo Index · Slide 2',excerpt:'Trial design index: population, comparator and primary endpoint sections are identified. No trial results or clinical values are present.'},
+        {title:'Population and eligibility',body:'A navigation entry for population criteria, not a clinical eligibility recommendation.',points:['Population criteria would be sourced from approved study material','Subgroups would require current, traceable documentation','Patient-specific questions are outside this demo'],sourceId:'CV-DEMO-03',sourceTitle:'Cardiovascular Demo Index · Slide 3',excerpt:'Population/eligibility section index. No individual patient data or eligibility thresholds are included.'},
+        {title:'Efficacy outcomes',body:'A placeholder for an outcomes section. The demonstration does not contain actual efficacy values.',points:['Primary endpoint results are not populated','Confidence intervals and subgroup values are not included','Do not infer results from this placeholder'],sourceId:'CV-DEMO-04',sourceTitle:'Cardiovascular Demo Index · Slide 4',excerpt:'Efficacy section placeholder. Actual endpoint results, confidence intervals and subgroup results are not supplied.'},
+        {title:'Safety summary',body:'A navigation entry for safety topics. No numerical event rates or comparative safety claims are included.',points:['Safety topics would require source-level review','No adverse-event rates are present in this sample','Specific clinical interpretations must be escalated'],sourceId:'CV-DEMO-05',sourceTitle:'Cardiovascular Demo Index · Slide 5',excerpt:'Safety section placeholder only. It contains no numerical rates and cannot support a comparative safety claim.'},
+        {title:'Dosing and renal considerations',body:'An index entry where approved dosing information would live. No dose, threshold or clinical instruction is included.',points:['Dosing information would require current approved label text','Renal-function criteria are not populated in this demo','Do not use this prototype to make clinical decisions'],sourceId:'CV-DEMO-06',sourceTitle:'Cardiovascular Demo Index · Slide 6',excerpt:'Dosing/renal section index only. Actual dose instructions and renal thresholds are not included.'}
+      ],
+      faqs: [
+        {id:'cv-trial',topic:'Trial design',phrases:['where is the trial design described','trial design','study design','comparator and endpoint','primary endpoint','trial endpoint'],question:'Where is the trial design described?',answer:'The demo index points to Slide 2, “Trial design and endpoint map,” for the population, comparator and endpoint sections. No trial outcome values are included in this sample pack.',sourceSlide:1,outcome:'REFERENCE_FOUND'},
+        {id:'cv-pop',topic:'Population criteria',phrases:['population criteria','eligibility criteria','study population','who was enrolled','inclusion criteria'],question:'Where are population criteria listed?',answer:'The demo index points to Slide 3, “Population and eligibility.” It is a navigation reference only; it does not include eligibility thresholds or patient-specific guidance.',sourceSlide:2,outcome:'REFERENCE_FOUND'},
+        {id:'cv-safety-index',topic:'Safety summary',phrases:['where is the safety summary','safety summary','safety slide','where can i find safety information'],question:'Where is the safety summary?',answer:'The demo index points to Slide 5, “Safety summary.” The sample does not contain adverse-event rates or comparative safety claims.',sourceSlide:4,outcome:'REFERENCE_FOUND'},
+        {id:'cv-renal',topic:'Dosing / renal criteria',phrases:['renal adjustment','renal impairment','kidney function','renal dose','dose adjustment','renal criteria','dosing guidance'],question:'Where are renal adjustment criteria documented?',answer:'The demo index points to Slide 6, “Dosing and renal considerations.” Actual dose instructions and renal thresholds are not included, so this prototype cannot provide a clinical recommendation.',sourceSlide:5,outcome:'REFERENCE_FOUND'},
+        {id:'cv-bleeding-number',topic:'Safety outcome value',phrases:['major bleeding rate','bleeding rate','bleeding percentage','bleeding compared','how many bleeding events','exact bleeding'],question:'What is the major bleeding rate?',answer:'The sample reference pack contains no validated numerical safety results. The question must be handled through the current approved product information or Medical Information; this prototype will not infer a rate.',sourceSlide:null,outcome:'ESCALATED',reason:'Validated numerical safety data are not present in the demo pack.'}
+      ],
+      chips:['Where is the trial design described?','Where are renal adjustment criteria documented?','What is the major bleeding rate?']
+    },
+    onc: {
+      label:'Oncology',short:'ONC',color:'#6547a1',soft:'#eee9fa',
+      slides:[
+        {title:'Therapy overview and scope',body:'A fictional oncology topic index. It does not identify a real medicine or provide an approved promotional claim.',points:['Discussion scope and structure only','No drug-specific indication is provided','No clinical outcome claims are supplied'],sourceId:'ONC-DEMO-01',sourceTitle:'Oncology Demo Index · Slide 1',excerpt:'Topic overview only. No real product or approved claim is represented.'},
+        {title:'Registration study design',body:'A placeholder showing where study-design details would appear in a controlled content pack.',points:['Study design section index','Population and endpoint references','No results or effect sizes included'],sourceId:'ONC-DEMO-02',sourceTitle:'Oncology Demo Index · Slide 2',excerpt:'Study design index only. No clinical results or numerical claims are provided.'},
+        {title:'Biomarker testing pathway',body:'A navigation entry for the biomarker section, not a testing recommendation.',points:['Testing pathway would require approved source material','Assay and eligibility criteria are not included','No patient-specific interpretation in this demo'],sourceId:'ONC-DEMO-03',sourceTitle:'Oncology Demo Index · Slide 3',excerpt:'Biomarker pathway index. Assay details, eligibility criteria and diagnostic instructions are omitted.'},
+        {title:'Response outcomes',body:'A placeholder for efficacy outcomes. The demo pack intentionally omits the actual outcome values.',points:['Response rates are not populated','Subgroup values are not supplied','No efficacy conclusions can be drawn'],sourceId:'ONC-DEMO-04',sourceTitle:'Oncology Demo Index · Slide 4',excerpt:'Response outcomes placeholder only. No objective response rate or duration-of-response values are present.'},
+        {title:'Tolerability overview',body:'A navigation entry for a tolerability section. It is not a safety profile for a real product.',points:['Adverse-event information is absent','No dose-modification instructions included','Medical questions must use approved sources'],sourceId:'ONC-DEMO-05',sourceTitle:'Oncology Demo Index · Slide 5',excerpt:'Tolerability section placeholder, with no real product safety data.'},
+        {title:'Access and support resources',body:'A generic resource index showing where a non-clinical support section might appear.',points:['Support materials would be brand-specific','No patient eligibility details are provided','No service is connected to this demo'],sourceId:'ONC-DEMO-06',sourceTitle:'Oncology Demo Index · Slide 6',excerpt:'Support resource index only. No live program information is included.'}
+      ],
+      faqs:[
+        {id:'onc-biomarker',topic:'Biomarker / testing pathway',phrases:['biomarker testing','biomarker criteria','testing pathway','companion diagnostic','where is the biomarker','assay criteria'],question:'Where is the biomarker testing pathway described?',answer:'The demo index points to Slide 3, “Biomarker testing pathway.” Assay details and eligibility criteria are not provided in this sample pack.',sourceSlide:2,outcome:'REFERENCE_FOUND'},
+        {id:'onc-outcome-index',topic:'Efficacy / subgroup outcomes',phrases:['where is response rate shown','where are response outcomes','objective response rate location','efficacy outcomes','subgroup results','where is efficacy'],question:'Where are response outcomes shown?',answer:'The demo index points to Slide 4, “Response outcomes.” Actual response rates, duration-of-response values and subgroup results are omitted.',sourceSlide:3,outcome:'REFERENCE_FOUND'},
+        {id:'onc-study',topic:'Trial design',phrases:['registration study design','study design','trial design','study endpoint','study population'],question:'Where is the study design described?',answer:'The demo index points to Slide 2, “Registration study design.” The sample pack does not include clinical results or effect sizes.',sourceSlide:1,outcome:'REFERENCE_FOUND'},
+        {id:'onc-safety-index',topic:'Tolerability overview',phrases:['tolerability overview','safety profile location','where are adverse events','tolerability slide','adverse event section'],question:'Where is the tolerability overview?',answer:'The demo index points to Slide 5, “Tolerability overview.” No product-specific adverse-event data or dose-modification instructions are available in this demo.',sourceSlide:4,outcome:'REFERENCE_FOUND'},
+        {id:'onc-unapproved',topic:'Unapproved indication',phrases:['unapproved tumor','unapproved tumour','outside the indication','off-label','off label','different tumor type','different tumour type'],question:'Is there data for an unapproved tumour type?',answer:'The demo pack does not provide support for questions outside an approved indication. This requires review by the appropriate medical function; no answer has been generated.',sourceSlide:null,outcome:'ESCALATED',reason:'Outside-indication question; no approved source in this fictional demo.'}
+      ],
+      chips:['Where is the biomarker testing pathway described?','Where are response outcomes shown?','Is there data for an unapproved tumour type?']
+    },
+    wh: {
+      label:"Women's Health",short:'WH',color:'#b84d68',soft:'#f9e8ed',
+      slides:[
+        {title:'Therapy overview and scope',body:'A fictional topic index for a women’s health discussion; it does not represent a real medicine or clinical recommendation.',points:['Topic structure only','No indication-specific promotional language included','No efficacy or safety outcomes provided'],sourceId:'WH-DEMO-01',sourceTitle:"Women's Health Demo Index · Slide 1",excerpt:'Fictional topic overview only. No real product claim or clinical guidance is included.'},
+        {title:'Study design overview',body:'A navigation entry for study-design elements, without a real study or clinical result.',points:['Study design and endpoints would be indexed here','No population-level results provided','No numerical claims in this demo'],sourceId:'WH-DEMO-02',sourceTitle:"Women's Health Demo Index · Slide 2",excerpt:'Study design placeholder. No actual clinical-study data included.'},
+        {title:'Baseline population',body:'An index for baseline population information; the sample does not contain real trial data.',points:['Population attributes would require a source reference','No patient records or subgroup values present','Do not infer population applicability'],sourceId:'WH-DEMO-03',sourceTitle:"Women's Health Demo Index · Slide 3",excerpt:'Baseline population index only. No demographic table or clinical interpretation supplied.'},
+        {title:'Efficacy by subgroup',body:'A placeholder for subgroup information. No efficacy values or conclusions are supplied.',points:['Subgroup outcome values are not populated','No interaction estimates are supplied','Clinical interpretation cannot be made from this placeholder'],sourceId:'WH-DEMO-04',sourceTitle:"Women's Health Demo Index · Slide 4",excerpt:'Subgroup section placeholder only. No outcome values or efficacy conclusions are present.'},
+        {title:'Tolerability and counseling index',body:'A navigation entry for counselling content, not clinical advice for an individual patient.',points:['The demo does not contain patient counselling instructions','No adverse-effect management guidance included','Use approved materials for real consultations'],sourceId:'WH-DEMO-05',sourceTitle:"Women's Health Demo Index · Slide 5",excerpt:'Tolerability/counselling section index only. Specific advice is intentionally omitted.'},
+        {title:'Patient support resources',body:'A generic index for non-clinical patient support material.',points:['Resources would be brand and market specific','No live helpline or support service connected','No enrolment or eligibility instructions supplied'],sourceId:'WH-DEMO-06',sourceTitle:"Women's Health Demo Index · Slide 6",excerpt:'Patient support placeholder only; no live service information is included.'}
+      ],
+      faqs:[
+        {id:'wh-subgroup',topic:'Efficacy / subgroup outcomes',phrases:['efficacy by subgroup','subgroup efficacy','where is efficacy','subgroup results','where are subgroup outcomes','bmi subgroup'],question:'Where is the subgroup efficacy overview?',answer:'The demo index points to Slide 4, “Efficacy by subgroup.” No efficacy values or clinical conclusions are included in this sample pack.',sourceSlide:3,outcome:'REFERENCE_FOUND'},
+        {id:'wh-counsel',topic:'Counselling materials',phrases:['counseling points','counselling points','counseling checklist','counselling checklist','patient advice','what should i tell a patient'],question:'Where are the counselling materials?',answer:'The demo index points to Slide 5, “Tolerability and counseling index.” The actual counselling instructions and clinical advice are not included in this sample pack.',sourceSlide:4,outcome:'REFERENCE_FOUND'},
+        {id:'wh-study',topic:'Study design',phrases:['study design','trial design','study endpoints','where is the study'],question:'Where is the study design overview?',answer:'The demo index points to Slide 2, “Study design overview.” It does not contain study-specific outcome values.',sourceSlide:1,outcome:'REFERENCE_FOUND'},
+        {id:'wh-support',topic:'Patient support resources',phrases:['patient support resource','support program','support resources','adherence support','helpline'],question:'Where are patient support resources listed?',answer:'The demo index points to Slide 6, “Patient support resources.” This is only a placeholder; no live service information or enrolment instructions are connected.',sourceSlide:5,outcome:'REFERENCE_FOUND'},
+        {id:'wh-clinical',topic:'Patient-specific medical advice',phrases:['for my patient','patient has','should this patient','recommend for a patient','what dose should','exact dose','off-label','off label'],question:'Can the demo recommend treatment for a specific patient?',answer:'No. This standalone demo does not contain a validated clinical knowledge base and cannot provide patient-specific treatment advice. The question must be handled through the appropriate medical function.',sourceSlide:null,outcome:'ESCALATED',reason:'Patient-specific or clinical recommendation requested.'}
+      ],
+      chips:['Where is the subgroup efficacy overview?','Where are the counselling materials?','Where are patient support resources listed?']
+    }
+  };
+
+  const $ = id => document.getElementById(id);
+  let currentTA = 'cv';
+  let currentSlide = 1;
+  let events = loadEvents();
+  let busy = false;
+
+  function loadEvents(){
+    try { const raw = localStorage.getItem(STORE_KEY); return raw ? JSON.parse(raw).filter(e => e && e.id && e.outcome) : []; }
+    catch(err){ return []; }
+  }
+  function saveEvents(){
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(events.slice(-500))); }
+    catch(err){ announce('Browser storage is unavailable. Events will remain only until this page is closed.'); }
+  }
+  function announce(message){
+    const live = $('chatThread');
+    if(live) live.setAttribute('aria-label', message);
+  }
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function normalize(s){
+    return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9%\s]/g,' ').replace(/\s+/g,' ').trim();
+  }
+  function riskCheck(question){
+    const q=normalize(question);
+    const redFlags=[
+      /\boff label\b/,/\bunapproved (use|indication|tumou?r|condition)\b/,/\bpatient (has|with|is|of)\b/,/\bfor my patient\b/,/\bshould (i|we) prescribe\b/,/\bwhat dose should\b/,/\bexact dose\b/,/\bchange (the )?dose\b/
+    ];
+    if(redFlags.some(re=>re.test(q))) return {reason:'Potential off-label, patient-specific or treatment instruction request.'};
+    return null;
+  }
+  function findFaq(question){
+    const q=normalize(question);
+    const risk=riskCheck(question);
+    if(risk) return {faq:null, risk};
+    let best=null; let bestScore=0;
+    for(const faq of AREAS[currentTA].faqs){
+      for(const p of faq.phrases){
+        const phrase=normalize(p);
+        if(phrase && q.includes(phrase)){
+          const score=phrase.split(' ').length * 10 + phrase.length/100;
+          if(score>bestScore){best=faq;bestScore=score;}
+        }
+      }
+    }
+    // If user asks for a number/result, only match a dedicated result route; never infer a value.
+    if(/\b(rate|percentage|percent|\d+%|number|value|result|how many|what was|how much)\b/.test(q) && /\b(bleed|safety|efficacy|response|survival|dose|result|event)\w*/.test(q)){
+      const hasExactResultFaq=AREAS[currentTA].faqs.some(f=>f.outcome==='ESCALATED' && f.phrases.some(p=>q.includes(normalize(p))));
+      if(!hasExactResultFaq) return {faq:null,risk:{reason:'The sample pack does not contain validated clinical outcome values.'}};
+    }
+    return {faq:best,risk:null};
+  }
+  function createId(){return 'DIQ-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase();}
+  function timeLabel(iso){try{return new Date(iso).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});}catch(e){return '';}}
+  function activeArea(){return AREAS[currentTA];}
+  function sourceFor(ta,slideIndex){
+    const slide=AREAS[ta].slides[slideIndex];
+    return slide ? {id:slide.sourceId,title:slide.sourceTitle,excerpt:slide.excerpt,area:AREAS[ta].label,version:'DEMO-0.1',status:'Fictional demo reference — not approved'} : null;
+  }
+  function sourceById(ta,id){
+    const slide=AREAS[ta].slides.find(s=>s.sourceId===id);
+    return slide ? {id:slide.sourceId,title:slide.sourceTitle,excerpt:slide.excerpt,area:AREAS[ta].label,version:'DEMO-0.1',status:'Fictional demo reference — not approved'} : null;
+  }
+  function renderSlide(){
+    const area=activeArea(); const slide=area.slides[currentSlide];
+    document.documentElement.style.setProperty('--accent',area.color);
+    document.documentElement.style.setProperty('--accent-soft',area.soft);
+    $('slideKicker').textContent=area.label.toUpperCase()+' · DEMO PACK';
+    $('slideTitle').textContent=slide.title;
+    $('slideBody').textContent=slide.body;
+    $('slideList').replaceChildren(...slide.points.map(point=>{const li=document.createElement('li');li.textContent=point;return li;}));
+    $('slideCount').textContent=`SLIDE ${currentSlide+1} / ${area.slides.length}`;
+    $('prevSlide').disabled=currentSlide===0; $('nextSlide').disabled=currentSlide===area.slides.length-1;
+    $('slideDots').replaceChildren(...area.slides.map((s,i)=>{
+      const b=document.createElement('button');b.className='slide-dot'+(i===currentSlide?' active':'');b.setAttribute('aria-label',`Go to slide ${i+1}: ${s.title}`);b.setAttribute('aria-current',i===currentSlide?'step':'false');b.addEventListener('click',()=>{currentSlide=i;renderSlide();});return b;
+    }));
+    document.querySelectorAll('.ta-pill').forEach(b=>{const active=b.dataset.ta===currentTA;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+  }
+  function renderChips(){
+    const row=$('chipRow'); row.replaceChildren();
+    activeArea().chips.forEach(label=>{
+      const faq=activeArea().faqs.find(f=>f.question===label) || activeArea().faqs.find(f=>normalize(f.question)===normalize(label));
+      const b=document.createElement('button');b.type='button';b.className='qchip';b.textContent=label;
+      b.addEventListener('click',()=>handleQuestion(label,faq||null));row.appendChild(b);
+    });
+  }
+  function appendMessage(kind,text,{outcome=null,sourceId=null,ta=currentTA,reason=null,sample=false}={}){
+    const thread=$('chatThread');
+    const wrap=document.createElement('div');wrap.className='msg '+(kind==='user'?'user':'assistant')+(outcome==='ESCALATED'?' escalated':'');
+    if(kind==='user'){wrap.textContent=text;thread.appendChild(wrap);thread.scrollTop=thread.scrollHeight;return;}
+    const head=document.createElement('div');head.className='msg-top';
+    const label=document.createElement('span');label.className='msg-label';label.textContent=outcome==='ESCALATED'?'Escalated safely':'Demo reference found';head.appendChild(label);
+    const badge=document.createElement('span');badge.className='status-pill '+(outcome==='ESCALATED'?'warn':'good');badge.textContent=sample?'SAMPLE EVENT':(outcome==='ESCALATED'?'NO SOURCE':'DEMO SOURCE');head.appendChild(badge);wrap.appendChild(head);
+    const p=document.createElement('p');p.textContent=text;wrap.appendChild(p);
+    if(sourceId){
+      const source=sourceById(ta,sourceId);
+      if(source){const b=document.createElement('button');b.type='button';b.className='source-button';b.textContent='⌕ '+source.title+' · '+source.id;b.addEventListener('click',()=>openSource(ta,sourceId));wrap.appendChild(b);}
+    }
+    if(outcome==='ESCALATED'){
+      const note=document.createElement('div');note.className='escalation-note';note.textContent='Handoff state: needs review by an authorised medical function. This demo does not send an actual request.'+(reason?' Reason: '+reason:'');wrap.appendChild(note);
+    }
+    thread.appendChild(wrap);thread.scrollTop=thread.scrollHeight;
+  }
+  function handleQuestion(text,forcedFaq=null){
+    const question=String(text||'').trim();if(!question||busy)return;
+    busy=true; $('chatInput').disabled=true; document.querySelector('#chatForm button').disabled=true;
+    appendMessage('user',question);
+    const {faq,risk}=forcedFaq?{faq:forcedFaq,risk:null}:findFaq(question);
+    // Keep the detail deck synchronized with the exact reference attached to the response.
+    if(!risk && faq && faq.outcome==='REFERENCE_FOUND' && Number.isInteger(faq.sourceSlide)){
+      currentSlide=faq.sourceSlide;
+      renderSlide();
+    }
+    let event;
+    if(risk){
+      const response='I can’t safely answer that from this fictional demo pack. No validated source for this request is available, so the question is flagged for review rather than answered or inferred.';
+      appendMessage('assistant',response,{outcome:'ESCALATED',reason:risk.reason});
+      event=buildEvent({question,topic:topicFromQuestion(question),outcome:'ESCALATED',sourceId:null,reason:risk.reason});
+    } else if(faq && faq.outcome==='ESCALATED'){
+      appendMessage('assistant',faq.answer,{outcome:'ESCALATED',reason:faq.reason||'Requested information is not in the demo pack.'});
+      event=buildEvent({question,topic:faq.topic,outcome:'ESCALATED',sourceId:null,reason:faq.reason||'Requested information is not in the demo pack.'});
+    } else if(faq){
+      const source=sourceFor(currentTA,faq.sourceSlide);
+      appendMessage('assistant',faq.answer,{outcome:'REFERENCE_FOUND',sourceId:source?.id||null});
+      event=buildEvent({question,topic:faq.topic,outcome:'REFERENCE_FOUND',sourceId:source?.id||null,reason:null});
+    } else {
+      const response='I could not match this question to a supported topic in the demo reference set. No answer has been generated. In a production system, this should be routed through a configured Medical Information workflow.';
+      appendMessage('assistant',response,{outcome:'ESCALATED',reason:'No matching reference in the demo rule set.'});
+      event=buildEvent({question,topic:topicFromQuestion(question),outcome:'ESCALATED',sourceId:null,reason:'No matching reference in the demo rule set.'});
+    }
+    events.push(event); events=events.slice(-500); saveEvents(); renderLedger(); renderDashboard();
+    $('chatInput').value=''; $('chatInput').disabled=false; document.querySelector('#chatForm button').disabled=false; $('chatInput').focus();busy=false;
+  }
+  function topicFromQuestion(question){
+    const q=normalize(question);
+    const patterns=[['Dosing / renal criteria',['renal','kidney','dose']],['Safety outcome value',['bleed','safety','adverse event']],['Biomarker / testing pathway',['biomarker','assay','testing']],['Efficacy / subgroup outcomes',['efficacy','subgroup','response','survival']],['Trial design',['trial','study','endpoint']],['Patient-specific medical advice',['patient','prescribe','treatment']],['Counselling materials',['counsel','advice']],['Patient support resources',['support','helpline']]];
+    for(const [topic,terms] of patterns)if(terms.some(t=>q.includes(t)))return topic;
+    return 'Unclassified question';
+  }
+  function buildEvent({question,topic,outcome,sourceId,reason=null,sample=false}){
+    return {id:createId(),timestamp:new Date().toISOString(),ta:currentTA,taLabel:activeArea().label,topic,question,outcome,sourceId,sourceLabel:sourceId?(sourceById(currentTA,sourceId)?.title||sourceId):'No source',reason,sample};
+  }
+  function renderLedger(){
+    const count=events.length;$('ledgerCount').textContent=count+' event'+(count===1?'':'s');
+    const wrap=$('ledgerTableWrap');
+    if(!count){wrap.innerHTML='<div class="empty-table">No questions logged yet. Try a suggested question above or load sample activity in Brand Analytics.</div>';return;}
+    const rows=events.slice(-12).reverse();
+    wrap.innerHTML='<table class="table"><thead><tr><th>Time</th><th>Area</th><th>Question / topic</th><th>Outcome</th><th>Reference</th><th>Data</th></tr></thead><tbody>'+rows.map(e=>{
+      const out=e.outcome==='ESCALATED'?'<span class="event-status escalated">ESCALATED</span>':'<span class="event-status reference">REFERENCE FOUND</span>';
+      const source=e.sourceId?`<button class="source-button" style="margin-top:0" data-source-ta="${escapeHtml(e.ta)}" data-source-id="${escapeHtml(e.sourceId)}">${escapeHtml(e.sourceId)}</button>`:'<span class="mono">NO SOURCE</span>';
+      return `<tr><td class="mono">${escapeHtml(timeLabel(e.timestamp))}</td><td>${escapeHtml(e.taLabel||e.ta)}</td><td><strong>${escapeHtml(e.topic)}</strong><br>${escapeHtml(e.question)}</td><td>${out}</td><td>${source}</td><td>${e.sample?'<span class="event-status sample">SAMPLE</span>':'INTERACTIVE'}</td></tr>`;
+    }).join('')+'</tbody></table>';
+    wrap.querySelectorAll('[data-source-id]').forEach(btn=>btn.addEventListener('click',()=>openSource(btn.dataset.sourceTa,btn.dataset.sourceId)));
+  }
+  function openSource(ta,id){
+    const source=sourceById(ta,id);if(!source)return;
+    $('sourceModalTitle').textContent=source.title;
+    $('sourceModalBody').innerHTML=`<div class="source-meta"><div class="meta-box"><span>Reference ID</span><strong>${escapeHtml(source.id)}</strong></div><div class="meta-box"><span>Therapeutic area</span><strong>${escapeHtml(source.area)}</strong></div><div class="meta-box"><span>Demo version</span><strong>${escapeHtml(source.version)}</strong></div><div class="meta-box"><span>Document status</span><strong>${escapeHtml(source.status)}</strong></div></div><div class="source-excerpt"><strong>Excerpt / content scope</strong><br><br>${escapeHtml(source.excerpt)}</div><div class="source-warning">This is a synthetic source description created for interface testing. It is not an approved document, clinical evidence, or a verified source for medical promotion.</div>`;
+    $('sourceModal').classList.add('open');$('closeSource').focus();
+  }
+  function closeSource(){ $('sourceModal').classList.remove('open'); }
+  function countBy(list,key){const m={};list.forEach(e=>{const k=e[key]||'Unclassified';m[k]=(m[k]||0)+1;});return m;}
+  function renderDashboard(){
+    const total=events.length;const refs=events.filter(e=>e.outcome==='REFERENCE_FOUND').length;const esc=events.filter(e=>e.outcome==='ESCALATED').length;
+    $('metricTotal').textContent=total;$('metricReferences').textContent=refs;$('metricEscalations').textContent=esc;$('metricCoverage').textContent=total?Math.round(refs/total*100)+'%':'—';
+    const topicCounts=countBy(events,'topic');const topics=Object.entries(topicCounts).sort((a,b)=>b[1]-a[1]).slice(0,7);const bars=$('topicBars');
+    if(!total)bars.innerHTML='<div class="empty-table">No events yet. Load sample activity or ask questions in Rep Workspace.</div>';
+    else{const max=Math.max(...topics.map(t=>t[1]),1);bars.innerHTML=topics.map(([topic,n])=>`<div class="bar-row"><div class="bar-label">${escapeHtml(topic)}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/max*100)}%"></div></div><div class="bar-val">${n}</div></div>`).join('');}
+    const outcomes=[['Reference found',refs,'var(--teal)'],['Escalated',esc,'#ce8c31']];const ol=$('outcomeList');
+    if(!total)ol.innerHTML='<div class="empty-table">No events to summarise.</div>';
+    else ol.innerHTML=outcomes.map(([name,n,color])=>`<div><div class="outcome-head"><span>${name}</span><span>${n} · ${Math.round(n/total*100)}%</span></div><div class="outcome-track"><div class="outcome-fill" style="width:${Math.round(n/total*100)}%;background:${color}"></div></div></div>`).join('');
+    const recent=events.slice(-8).reverse();const rw=$('recentEvents');
+    if(!recent.length)rw.innerHTML='<div class="empty-table">No events logged.</div>';
+    else rw.innerHTML='<table class="table"><thead><tr><th>Time</th><th>Therapy area</th><th>Topic</th><th>Outcome</th><th>Source</th><th>Type</th></tr></thead><tbody>'+recent.map(e=>`<tr><td class="mono">${escapeHtml(timeLabel(e.timestamp))}</td><td>${escapeHtml(e.taLabel||e.ta)}</td><td>${escapeHtml(e.topic)}</td><td>${e.outcome==='ESCALATED'?'<span class="event-status escalated">ESCALATED</span>':'<span class="event-status reference">REFERENCE FOUND</span>'}</td><td>${escapeHtml(e.sourceId||'—')}</td><td>${e.sample?'<span class="event-status sample">SAMPLE</span>':'INTERACTIVE'}</td></tr>`).join('')+'</tbody></table>';
+  }
+  function setView(which){
+    const isCall=which==='call';$('callView').classList.toggle('active',isCall);$('dashboard').classList.toggle('active',!isCall);$('btnCall').classList.toggle('active',isCall);$('btnDash').classList.toggle('active',!isCall);$('btnCall').setAttribute('aria-pressed',String(isCall));$('btnDash').setAttribute('aria-pressed',String(!isCall));if(!isCall)renderDashboard();
+  }
+  function csvCell(value){return '"'+String(value??'').replace(/"/g,'""')+'"';}
+  function exportCSV(){
+    if(!events.length){alert('There are no events to export yet.');return;}
+    const headers=['Event ID','Timestamp','Therapeutic Area','Topic','Question','Outcome','Source ID','Source Label','Reason','Synthetic Sample'];
+    const lines=[headers,...events.map(e=>[e.id,e.timestamp,e.taLabel||e.ta,e.topic,e.question,e.outcome,e.sourceId||'',e.sourceLabel||'',e.reason||'',e.sample?'Yes':'No'])].map(row=>row.map(csvCell).join(','));
+    const blob=new Blob(['\uFEFF'+lines.join('\r\n')],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='detailiq_demo_events.csv';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  }
+  function loadSamples(){
+    if(events.some(e=>e.sample)&&!confirm('Sample activity is already present. Add another sample set?'))return;
+    const seed=[
+      ['cv','Trial design','Where is the trial design described?','REFERENCE_FOUND','CV-DEMO-02'],
+      ['cv','Dosing / renal criteria','Where are renal adjustment criteria documented?','REFERENCE_FOUND','CV-DEMO-06'],
+      ['cv','Safety outcome value','What is the major bleeding rate?','ESCALATED',null],
+      ['cv','Population criteria','Where are population criteria listed?','REFERENCE_FOUND','CV-DEMO-03'],
+      ['cv','Trial design','Where is the trial design described?','REFERENCE_FOUND','CV-DEMO-02'],
+      ['onc','Biomarker / testing pathway','Where is the biomarker testing pathway described?','REFERENCE_FOUND','ONC-DEMO-03'],
+      ['onc','Efficacy / subgroup outcomes','Where are response outcomes shown?','REFERENCE_FOUND','ONC-DEMO-04'],
+      ['onc','Unapproved indication','Is there data for an unapproved tumour type?','ESCALATED',null],
+      ['onc','Trial design','Where is the study design described?','REFERENCE_FOUND','ONC-DEMO-02'],
+      ['wh','Efficacy / subgroup outcomes','Where is the subgroup efficacy overview?','REFERENCE_FOUND','WH-DEMO-04'],
+      ['wh','Counselling materials','Where are the counselling materials?','REFERENCE_FOUND','WH-DEMO-05'],
+      ['wh','Patient support resources','Where are patient support resources listed?','REFERENCE_FOUND','WH-DEMO-06']
+    ];
+    seed.forEach(([ta,topic,question,outcome,sourceId],i)=>{
+      const area=AREAS[ta];const source=sourceId?sourceById(ta,sourceId):null;
+      events.push({id:'SAMPLE-'+String(Date.now()+i),timestamp:new Date(Date.now()-(seed.length-i)*60000).toISOString(),ta,taLabel:area.label,topic,question,outcome,sourceId,sourceLabel:source?.title||'No source',reason:outcome==='ESCALATED'?'Synthetic sample event — not a real escalation.':null,sample:true});
+    });
+    events=events.slice(-500);saveEvents();renderLedger();renderDashboard();
+  }
+  function clearAll(){
+    if(!events.length){return;}
+    if(!confirm('Clear all local DetailIQ demo events, including sample activity? This cannot be undone.'))return;
+    events=[];saveEvents();renderLedger();renderDashboard();
+  }
+
+  // Event wiring
+  document.querySelectorAll('.ta-pill').forEach(btn=>btn.addEventListener('click',()=>{currentTA=btn.dataset.ta;currentSlide=1;renderSlide();renderChips();}));
+  $('prevSlide').addEventListener('click',()=>{if(currentSlide>0){currentSlide--;renderSlide();}});
+  $('nextSlide').addEventListener('click',()=>{if(currentSlide<activeArea().slides.length-1){currentSlide++;renderSlide();}});
+  $('btnCall').addEventListener('click',()=>setView('call'));
+  $('btnDash').addEventListener('click',()=>setView('dash'));
+  $('goWorkspace').addEventListener('click',()=>setView('call'));
+  $('chatForm').addEventListener('submit',e=>{e.preventDefault();handleQuestion($('chatInput').value);});
+  $('exportCsv').addEventListener('click',exportCSV);$('dashExport').addEventListener('click',exportCSV);
+  $('clearEvents').addEventListener('click',clearAll);$('clearDashEvents').addEventListener('click',clearAll);$('loadSamples').addEventListener('click',loadSamples);
+  $('closeSource').addEventListener('click',closeSource);$('sourceModal').addEventListener('click',e=>{if(e.target===$('sourceModal'))closeSource();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSource();});
+
+  renderSlide();renderChips();renderLedger();renderDashboard();
+})();
+</script>
+</body>
+</html>
